@@ -15,23 +15,29 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call([
-        BurgerSeeder::class
-            ]);
+            BurgerSeeder::class
+        ]);
 
-       // User::factory()->create([
-          //  'name' => 'Test User',
-          //  'email' => 'test@example.com',
-             //]);
+        // User::factory()->create([
+        //  'name' => 'Test User',
+        //  'email' => 'test@example.com',
+        //]);
         \App\Models\User::create([
-            'name' => 'Dieumbe',
-            'email' => 'dieumbe@test.com',
+           'name' => 'Dieumbe Thioukry',
+            'email' => 'dieumbethioukry@gmail.com',
             'password' => bcrypt('password'),
             // On utilise bcrypt pour hacher le mot de passe
             'role' => 'admin',
         ]);
+        \App\Models\User::create([
+        'name' => 'Mbaye Ladiane',
+            'email' => 'mbayeladiane@gmail.com',
+            'password' => bcrypt('password'),
+            // On utilise bcrypt pour hacher le mot de passe
+            'role' => 'client',
 
 
+        ]);
 
-
-    }
+        }
 }
