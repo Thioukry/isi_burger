@@ -1,0 +1,15 @@
+# Dépendances locales (Docker les installera lui-même via Composer)
+vendor/
+node_modules/
+
+# Configuration IDE et Git
+.idea/
+.git/
+.gitignore
+
+# Logs et caches
+storage/logs/
+storage/framework/cache/
+storage/framework/sessions/
+storage/framework/views/
+.env

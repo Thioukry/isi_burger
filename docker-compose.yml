@@ -1,0 +1,50 @@
+services:
+  # Service pour l'application Laravel
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: isi-burger-app
+    container_name: isi-burger-app
+    restart: unless-stopped
+    working_dir: /var/www
+    command : tail -f /dev/null
+    volumes:
+      - .:/var/www
+    networks:
+      - isi-network
+
+  # Service pour la base de données MySQL
+  isi_burger_db:
+    image: mysql:8.0
+    container_name: isi-burger-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: isi_burger_db
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - isi-network
+
+  # Service pour le serveur Web (Nginx) pour accéder via le navigateur
+  nginx:
+    image: nginx:alpine
+    container_name: isi-burger-nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - isi-network
+
+networks:
+  isi-network:
+    driver: bridge
+
+volumes:
+  dbdata:
