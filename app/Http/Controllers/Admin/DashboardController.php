@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Commande;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +11,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-
+        if (auth()->user()->role !== 'admin') {
+            return redirect('/')->with('error', 'Accès refusé !');
+        }
         $recettesJour = Commande::whereDate('created_at', today())
             ->where('statut_paiement', 'paye')
             ->sum('total');
